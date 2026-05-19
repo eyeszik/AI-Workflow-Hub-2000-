@@ -544,7 +544,7 @@
         620
       ],
       "parameters": {
-        "jsCode": "// TODO: Some messages have an empty payload and a parts field instead (containing an array)\n\nfor (const item of $input.all()) {\n  for (const message of item.json.messages) {\n    console.log('message', message.payload.body.data || \"\")\n    let buffer = Buffer.from(message.payload.body.data || \"\", \"base64\");\n    message.html = buffer.toString(\"utf8\")\n  }\n}\n\nreturn $input.all();"
+        "jsCode": "function getBody(payload) {\n  if (payload.body && payload.body.data) return payload.body.data;\n  if (!payload.parts) return '';\n\n  function findPart(parts, mimeType) {\n    for (const part of parts) {\n      if (part.mimeType === mimeType && part.body && part.body.data) return part.body.data;\n      if (part.parts) {\n        const found = findPart(part.parts, mimeType);\n        if (found) return found;\n      }\n    }\n    return null;\n  }\n\n  return findPart(payload.parts, 'text/html') || findPart(payload.parts, 'text/plain') || '';\n}\n\nfor (const item of $input.all()) {\n  for (const message of item.json.messages) {\n    const data = getBody(message.payload);\n    const buffer = Buffer.from(data, \"base64\");\n    message.html = buffer.toString(\"utf8\");\n  }\n}\n\nreturn $input.all();"
       },
       "typeVersion": 2
     },
