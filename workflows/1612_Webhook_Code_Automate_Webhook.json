@@ -348,10 +348,18 @@
         300
       ],
       "parameters": {
-        "url": "=https://api.ocr.space/parse/imageurl?apikey=K82173083188957&language=tha&isOverlayRequired=false&OCREngine=2&filetype=JPG&url={{ \"https://drive.google.com/uc?id=\" + $json[\"id\"] }}\n",
-        "options": {}
+        "url": "=https://api.ocr.space/parse/imageurl?language=tha&isOverlayRequired=false&OCREngine=2&filetype=JPG&url={{ \"https://drive.google.com/uc?id=\" + $json[\"id\"] }}",
+        "options": {},
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth"
       },
-      "typeVersion": 4.2
+      "typeVersion": 4.2,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "YOUR_OCR_SPACE_CREDENTIAL_ID",
+          "name": "OCR.space API Key"
+        }
+      }
     },
     {
       "id": "678993d0-8301-42d5-93cd-7839d42b71bc",
