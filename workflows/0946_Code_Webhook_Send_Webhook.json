@@ -677,7 +677,7 @@
             "x-real-ip": "10.255.0.2",
             "user-agent": "PostmanRuntime/7.32.3",
             "content-type": "text/plain",
-            "authorization": "1234567890",
+            "authorization": "[REDACTED]",
             "postman-token": "8701ef86-2136-4c79-941a-bc8ed79bcc9e",
             "content-length": "3900",
             "accept-encoding": "gzip, deflate, br",

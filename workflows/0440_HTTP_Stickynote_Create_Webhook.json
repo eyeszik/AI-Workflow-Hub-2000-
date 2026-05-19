@@ -216,7 +216,7 @@
       {
         "body": {
           "text": "Some name",
-          "token": "OROQZiopO3NiQVLFg0muEISq",
+          "token": "[YOUR_TOKEN_HERE]",
           "command": "/idea",
           "team_id": "TG9695PUK",
           "user_id": "U047V1J0E7J",

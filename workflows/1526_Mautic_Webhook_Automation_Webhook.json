@@ -178,7 +178,7 @@
       "parameters": {
         "type": "SHA256",
         "action": "hmac",
-        "secret": "a031f434181d2bce0a81694c11fafb5887c78a48c50da98d62b7ab7c6d57080c",
+        "secret": "[YOUR_SECRET_HERE]",
         "encoding": "base64",
         "binaryData": true
       },

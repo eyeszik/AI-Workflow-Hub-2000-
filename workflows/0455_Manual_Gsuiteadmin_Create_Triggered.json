@@ -22,7 +22,7 @@
       "parameters": {
         "domain": "n8n.io",
         "lastName": "Nat",
-        "password": "sjhdjsdhbajshdb",
+        "password": "[YOUR_PASSWORD_HERE]",
         "username": "nat",
         "firstName": "Nathan",
         "additionalFields": {}

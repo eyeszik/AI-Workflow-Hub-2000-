@@ -239,7 +239,7 @@
       {
         "body": {
           "text": "My bug",
-          "token": "OROQZiopO3NiQVLFg0muEISq",
+          "token": "[YOUR_TOKEN_HERE]",
           "command": "/bug",
           "team_id": "TG9695PUK",
           "user_id": "U047V1J0E7J",
