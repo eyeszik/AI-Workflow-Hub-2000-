@@ -721,7 +721,7 @@
             "accept": "*/*",
             "user-agent": "PostmanRuntime/7.39.0",
             "content-type": "application/json",
-            "authorization": "Basic xxxxxxx==",
+            "authorization": "[REDACTED]",
             "cache-control": "no-cache",
             "postman-token": "41b79257-xxxx-xxxx-xxxx-9e004cae4e9e",
             "content-length": "52",
