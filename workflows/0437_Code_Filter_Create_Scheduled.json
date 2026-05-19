@@ -544,7 +544,7 @@
         620
       ],
       "parameters": {
-        "jsCode": "// TODO: Some messages have an empty payload and a parts field instead (containing an array)\n\nfor (const item of $input.all()) {\n  for (const message of item.json.messages) {\n    console.log('message', message.payload.body.data || \"\")\n    let buffer = Buffer.from(message.payload.body.data || \"\", \"base64\");\n    message.html = buffer.toString(\"utf8\")\n  }\n}\n\nreturn $input.all();"
+        "jsCode": "function getBody(payload) {\n  if (payload.body && payload.body.data) {\n    return payload.body.data;\n  }\n  if (payload.parts) {\n    let htmlPart = payload.parts.find(part => part.mimeType === 'text/html');\n    if (htmlPart && htmlPart.body && htmlPart.body.data) {\n      return htmlPart.body.data;\n    }\n    let plainPart = payload.parts.find(part => part.mimeType === 'text/plain');\n    if (plainPart && plainPart.body && plainPart.body.data) {\n      return plainPart.body.data;\n    }\n    for (const part of payload.parts) {\n      const body = getBody(part);\n      if (body) return body;\n    }\n  }\n  return \"\";\n}\n\nfor (const item of $input.all()) {\n  for (const message of item.json.messages) {\n    const rawBody = getBody(message.payload);\n    const buffer = Buffer.from(rawBody.replace(/-/g, '+').replace(/_/g, '/'), \"base64\");\n    message.html = buffer.toString(\"utf8\");\n  }\n}\n\nreturn $input.all();"
       },
       "typeVersion": 2
     },
