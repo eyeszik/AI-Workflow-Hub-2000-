@@ -544,7 +544,7 @@
         620
       ],
       "parameters": {
-        "jsCode": "// TODO: Some messages have an empty payload and a parts field instead (containing an array)\n\nfor (const item of $input.all()) {\n  for (const message of item.json.messages) {\n    console.log('message', message.payload.body.data || \"\")\n    let buffer = Buffer.from(message.payload.body.data || \"\", \"base64\");\n    message.html = buffer.toString(\"utf8\")\n  }\n}\n\nreturn $input.all();"
+        "jsCode": "function getPart(parts, mimeType) {\n  for (const part of parts) {\n    if (part.mimeType === mimeType && part.body && part.body.data) {\n      return part.body.data;\n    }\n    if (part.parts) {\n      const data = getPart(part.parts, mimeType);\n      if (data) return data;\n    }\n  }\n  return null;\n}\n\nfor (const item of $input.all()) {\n  for (const message of item.json.messages) {\n    let base64Data = \"\";\n    if (message.payload.body && message.payload.body.data) {\n      base64Data = message.payload.body.data;\n    } else if (message.payload.parts) {\n      base64Data = getPart(message.payload.parts, 'text/html') || getPart(message.payload.parts, 'text/plain') || \"\";\n    }\n\n    if (base64Data) {\n      const base64 = base64Data.replace(/-/g, '+').replace(/_/g, '/');\n      message.html = Buffer.from(base64, 'base64').toString(\"utf8\");\n    } else {\n      message.html = \"\";\n    }\n  }\n}\n\nreturn $input.all();"
       },
       "typeVersion": 2
     },
