@@ -270,7 +270,7 @@
         380
       ],
       "parameters": {
-        "functionCode": "const config = $item(0).$node['Read Config 3'].json;\n\n// ensure there is a \"standups\" array:\nconfig['standups'] = config['standups'] ?? [];\n\nconst now = new Date();\nconst duePattern = `${now.getDay()}_${now\n  .getHours()\n  .toString()\n  .padStart(2, '0')}:00`; // e.g. 1_13:00 => Monday 1 p.m.\n  \nconsole.log(duePattern);\n\n// filter standups that are due now:\nconst dueStandups = config.standups.filter((standup) =>\n  //true\n  standup.days.map((day) => `${day}_${standup.time}`).includes(duePattern)\n);\n\nreturn dueStandups.map((standup) => ({\n  json: standup,\n}));\n\n"
+        "functionCode": "const config = $item(0).$node['Read Config 3'].json;\n\n// ensure there is a \"standups\" array:\nconfig['standups'] = config['standups'] ?? [];\n\nconst now = new Date();\nconst duePattern = `${now.getDay()}_${now\n  .getHours()\n  .toString()\n  .padStart(2, '0')}:00`; // e.g. 1_13:00 => Monday 1 p.m.\n  \nconsole.log(duePattern);\n\n// filter standups that are due now:\nconst [dueDay, dueTime] = duePattern.split(\"_\");\nconst dueStandups = config.standups.filter((standup) => {\n  const days = Array.isArray(standup.days) ? standup.days : [];\n  return standup.time === dueTime && days.some((day) => String(day) === dueDay);\n});\n\nreturn dueStandups.map((standup) => ({\n  json: standup,\n}));\n\n"
       },
       "typeVersion": 1
     },
